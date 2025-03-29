@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import Layout from "./components/Layout.tsx";
 import { WidgetContainer } from "./components/WidgetContainer.tsx";
 import SearchInput from "./components/SearchInput.tsx";
-import Button from "./components/Button.tsx";
+import mockUsersData from "././assets/mockdata.json";
+import { Pagination } from "./components/Pagination.tsx";
 
 type UserProps = {
   id: number;
@@ -14,7 +15,7 @@ type UserProps = {
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [message, setMessage] = useState("");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<UserProps[]>([]);
 
   const handleSearchUpdate = (query: string) => {
     setSearchQuery(query);
@@ -54,37 +55,23 @@ export default function App() {
             value={searchQuery}
             placeholder="Search GitHub users"
           />
-          <Button
-            kind="primary"
-            onClick={() => console.log(searchQuery)}
-            type="button"
-            className="hidden sm:flex"
-          >
-            Search
-          </Button>
         </div>
-        {message}
 
-        {users
-          ? users.map((user: UserProps) => (
-              <li
-                key={user.id}
-                className="flex gap-8 p-2 border-essential-black border-b-2"
-              >
-                <img
-                  src={user.avatar_url}
-                  alt={user.login}
-                  className="rounded-full w-12 h-12"
-                />
-                <div className="flex flex-col">
-                  <h2>{user.login}</h2>
-                  <div>
-                    <p>{user.url}</p>
-                  </div>
-                </div>
-              </li>
-            ))
-          : "No users"}
+        {/* {users && users.length > 0 ? (
+          <Pagination data={users} itemsPerPage={6} initialPage={1} />
+        ) : (
+          <p>{message || "No users found"}</p>
+        )} */}
+
+        {mockUsersData.items && mockUsersData.items.length > 0 ? (
+          <Pagination
+            data={mockUsersData.items}
+            itemsPerPage={6}
+            initialPage={1}
+          />
+        ) : (
+          <p>{message}</p>
+        )}
       </WidgetContainer>
     </Layout>
   );

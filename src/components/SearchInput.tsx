@@ -17,7 +17,7 @@ export default function SearchInput({
   };
 
   return (
-    <FlexWrapper className="relative flex-grow items-center">
+    <FlexWrapper className="relative flex-grow items-center mb-2">
       <Magnifier className="absolute left-3 text-gray-400" />
       <input
         type="text"
