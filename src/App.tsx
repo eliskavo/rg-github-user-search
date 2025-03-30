@@ -7,10 +7,7 @@ import ChevronLeft from "./components/icons/ChevronLeft.tsx";
 import { Repositories } from "./components/Repositories.tsx";
 
 type User = {
-  id: number;
   login: string;
-  avatar_url: string;
-  url: string;
 };
 
 export const App: React.FC = () => {
@@ -22,6 +19,10 @@ export const App: React.FC = () => {
 
   const handleCloseDetail = () => {
     setSelectedUser(null);
+  };
+
+  const reloadPage = () => {
+    window.location.reload();
   };
 
   return (
@@ -49,7 +50,12 @@ export const App: React.FC = () => {
         </>
       ) : (
         <>
-          <h1 className="text-2xl mb-4 md:text-4xl">Search GitHub users</h1>
+          <button
+            className="text-2xl mb-4 md:text-4xl cursor-pointer"
+            onClick={reloadPage}
+          >
+            Search GitHub users
+          </button>
           <WidgetContainer>
             <SearchUsers onUserClick={handleUserSelect} />
           </WidgetContainer>

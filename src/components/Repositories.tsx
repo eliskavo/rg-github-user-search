@@ -5,7 +5,7 @@ type RepositoriesProps = {
   username: string;
 };
 
-type Repos = {
+type Repo = {
   id: number;
   name: string;
   html_url: string;
@@ -13,7 +13,7 @@ type Repos = {
 };
 
 export const Repositories: React.FC<RepositoriesProps> = ({ username }) => {
-  const [repos, setRepos] = useState<Repos[]>([]);
+  const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,6 +27,7 @@ export const Repositories: React.FC<RepositoriesProps> = ({ username }) => {
     const fetchRepositories = async () => {
       try {
         setLoading(true);
+        setError(null);
         const reposResponse = await fetch(
           `https://api.github.com/users/${username}/repos`
         );
@@ -45,61 +46,76 @@ export const Repositories: React.FC<RepositoriesProps> = ({ username }) => {
 
   if (loading) {
     return (
-      <h2 className="text-xl font-semibold mb-4">Loading repositories...</h2>
+      <>
+        <h1 className="text-2xl mb-6 sm:text-4xl">Repositories</h1>
+        <p className="text-xl font-semibold mb-4">Loading repositories...</p>
+      </>
     );
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <>
+        <h1 className="text-2xl mb-6 sm:text-4xl">Repositories</h1>
+        <p className="text-xl font-semibold mb-4">{error}</p>
+      </>
+    );
   }
 
   return (
-    <>
+    <div className="flex flex-col min-h-[500px]">
       <h1 className="text-2xl mb-6 sm:text-4xl">Repositories</h1>
-      {repos.length > 0 ? (
-        <div>
-          {currentData.map((repo) => (
-            <ul
-              key={repo.id}
-              className="py-4 border-essential-black border-b-2 h-22 hover:bg-gray-900"
-            >
-              <li className="flex justify-between">
-                <a
-                  href={repo.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-essential-white text-xl w-full"
-                >
-                  {repo.name}
+      <div className="flex-grow">
+        {repos.length > 0 ? (
+          <div>
+            {currentData.map((repo) => (
+              <ul
+                key={repo.id}
+                className="py-2 border-essential-black flex items-center border-b-2 h-22 hover:bg-gray-900"
+              >
+                <li className="w-full">
+                  <a
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-essential-white text-xl w-full flex"
+                  >
+                    {repo.name}
 
-                  {repo.description && (
-                    <p className="text-sm text-gray-600 mt-1">
-                      {repo.description}
-                    </p>
-                  )}
-                </a>
+                    {repo.description && (
+                      <p className="text-sm hidden sm:block text-gray-600 mt-1">
+                        {repo.description}
+                      </p>
+                    )}
+                  </a>
+                </li>
+              </ul>
+            ))}
+
+            {emptyRows.map((emptyRow) => (
+              <li
+                key={emptyRow.id}
+                className="flex gap-8 p-2 border-essential-black border-b-2 h-22 items-center"
+              >
+                <div className="flex flex-col">
+                  <h2>&nbsp;</h2>
+                  <p>&nbsp;</p>
+                </div>
               </li>
-            </ul>
-          ))}
+            ))}
+          </div>
+        ) : (
+          <p className="text-2xl text-gray-500 mt-6">
+            No public repositories found :O{" "}
+          </p>
+        )}
+      </div>
 
-          {emptyRows.map((emptyRow) => (
-            <li
-              key={emptyRow.id}
-              className="flex gap-8 p-2 border-essential-black border-b-2 h-22 items-center"
-            >
-              <div className="flex flex-col">
-                <h2>&nbsp;</h2>
-                <p>&nbsp;</p>
-              </div>
-            </li>
-          ))}
-        </div>
-      ) : (
-        <p className="text-2xl">No public repositories found :O </p>
+      {currentData.length > 0 && (
+        <nav className="mt-auto pt-4" aria-label="Search results pagination">
+          {paginationControls}
+        </nav>
       )}
-      <nav className="mt-6" aria-label="Search results pagination">
-        {paginationControls}
-      </nav>
-    </>
+    </div>
   );
 };

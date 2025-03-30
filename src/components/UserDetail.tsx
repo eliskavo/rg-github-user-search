@@ -9,11 +9,11 @@ type UserDetail = {
   id: number;
   username: string;
   login: string;
-  name: string;
+  name: string | null;
   avatar_url: string;
   html_url: string;
-  bio: string;
-  location: string;
+  bio: string | null;
+  location: string | null;
   followers: number;
   following: number;
 };
@@ -30,6 +30,7 @@ export const UserDetail: React.FC<UserDetailProps> = ({
     const fetchUserDetail = async () => {
       try {
         setLoading(true);
+        setError(null);
         const response = await fetch(
           `https://api.github.com/users/${username}`
         );

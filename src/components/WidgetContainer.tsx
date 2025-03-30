@@ -1,14 +1,11 @@
 import clsx from "clsx";
 
 interface WidgetContainerProps {
-  children: React.ReactNode;
-  className?: string;
+  readonly children: React.ReactNode;
+  readonly className?: string;
 }
 
-export function WidgetContainer({
-  children,
-  className = "",
-}: WidgetContainerProps) {
+export function WidgetContainer({ children, className }: WidgetContainerProps) {
   return (
     <div
       className={clsx(
