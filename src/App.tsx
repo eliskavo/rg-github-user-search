@@ -4,6 +4,7 @@ import { WidgetContainer } from "./components/WidgetContainer.tsx";
 import { SearchUsers } from "./components/SearchUsers.tsx";
 import { UserDetail } from "./components/UserDetail.tsx";
 import ChevronLeft from "./components/icons/ChevronLeft.tsx";
+import { Repositories } from "./components/Repositories.tsx";
 
 type User = {
   id: number;
@@ -33,8 +34,18 @@ export const App: React.FC = () => {
             </button>
             <h1 className="text-2xl mb-4 md:text-4xl">User details</h1>
           </div>
-
-          <UserDetail username={selectedUser.login} />
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="w-full sm:w-1/3">
+              <WidgetContainer>
+                <UserDetail username={selectedUser.login} />
+              </WidgetContainer>
+            </div>
+            <div className="w-full sm:w-2/3">
+              <WidgetContainer>
+                <Repositories username={selectedUser.login} />
+              </WidgetContainer>
+            </div>
+          </div>
         </>
       ) : (
         <>
