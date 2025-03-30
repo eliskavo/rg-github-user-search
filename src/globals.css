@@ -4,22 +4,12 @@
 @theme {
   --font-roboto: "Roboto", sans-serif;
 
-  --color-orange: #ff5500;
-  --color-green: #14f195;
-  --color-purple: #a052ff;
-
-  --color-orange-hover: #cc4400;
-  --color-green-hover: #0bc175;
-  --color-purple-hover: #7e14ff;
-
   --color-essential-white: #ffffff;
   --color-essential-black: #000000;
 
   --color-gray-1000-bg: #121212;
   --color-gray-950: #1b1b1b;
   --color-gray-900: #363635;
-  --color-gray-800: #474747;
-  --color-gray-700: #5e5e5e;
   --color-gray-600: #7d7d7d;
   --color-gray-500: #999999;
   --color-gray-400: #b3b3b2;

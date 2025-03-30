@@ -7,11 +7,11 @@ type SearchInputProps = {
   value: string;
 };
 
-export default function SearchInput({
+export const SearchInput: React.FC<SearchInputProps> = ({
   placeholder,
   onSearch,
   value,
-}: SearchInputProps) {
+}: SearchInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onSearch(e.target.value);
   };
@@ -28,4 +28,4 @@ export default function SearchInput({
       />
     </FlexWrapper>
   );
-}
+};

@@ -9,7 +9,7 @@ type ButtonProps = {
   className?: string;
 };
 
-export default function Button(buttonProps: ButtonProps) {
+export const Button: React.FC<ButtonProps> = (buttonProps) => {
   const {
     children,
     className,
@@ -40,4 +40,4 @@ export default function Button(buttonProps: ButtonProps) {
       {children}
     </button>
   );
-}
+};

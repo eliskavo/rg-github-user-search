@@ -1,78 +1,49 @@
-import { useState, useEffect } from "react";
-import Layout from "./components/Layout.tsx";
+import { useState } from "react";
+import { Layout } from "./components/Layout.tsx";
 import { WidgetContainer } from "./components/WidgetContainer.tsx";
-import SearchInput from "./components/SearchInput.tsx";
-import mockUsersData from "././assets/mockdata.json";
-import { Pagination } from "./components/Pagination.tsx";
+import { SearchUsers } from "./components/SearchUsers.tsx";
+import { UserDetail } from "./components/UserDetail.tsx";
+import ChevronLeft from "./components/icons/ChevronLeft.tsx";
 
-type UserProps = {
+type User = {
   id: number;
   login: string;
   avatar_url: string;
   url: string;
 };
 
-export default function App() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [message, setMessage] = useState("");
-  const [users, setUsers] = useState<UserProps[]>([]);
+export const App: React.FC = () => {
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
-  const handleSearchUpdate = (query: string) => {
-    setSearchQuery(query);
-
-    if (query === "") {
-      setMessage("Start searching users");
-    }
+  const handleUserSelect = (user: User) => {
+    setSelectedUser(user);
   };
 
-  const fetchUsers = async (searchQuery: string) => {
-    try {
-      const response = await fetch(
-        `https://api.github.com/search/users?q=${searchQuery}`
-      );
-      const data = await response.json();
-      setUsers(data.items);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleCloseDetail = () => {
+    setSelectedUser(null);
   };
-
-  useEffect(() => {
-    if (searchQuery) {
-      fetchUsers(searchQuery);
-    } else {
-      setMessage("Start searching users");
-    }
-  }, [searchQuery]);
 
   return (
     <Layout>
-      <h1 className="text-2xl mb-4 md:text-4xl">Search GitHub users</h1>
-      <WidgetContainer>
-        <div className="flex justify-between gap-4">
-          <SearchInput
-            onSearch={handleSearchUpdate}
-            value={searchQuery}
-            placeholder="Search GitHub users"
-          />
-        </div>
+      {selectedUser ? (
+        <>
+          <div className="flex items-baseline gap-2">
+            <button onClick={handleCloseDetail} className="cursor-pointer">
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <h1 className="text-2xl mb-4 md:text-4xl">User details</h1>
+          </div>
 
-        {/* {users && users.length > 0 ? (
-          <Pagination data={users} itemsPerPage={6} initialPage={1} />
-        ) : (
-          <p>{message || "No users found"}</p>
-        )} */}
-
-        {mockUsersData.items && mockUsersData.items.length > 0 ? (
-          <Pagination
-            data={mockUsersData.items}
-            itemsPerPage={6}
-            initialPage={1}
-          />
-        ) : (
-          <p>{message}</p>
-        )}
-      </WidgetContainer>
+          <UserDetail username={selectedUser.login} />
+        </>
+      ) : (
+        <>
+          <h1 className="text-2xl mb-4 md:text-4xl">Search GitHub users</h1>
+          <WidgetContainer>
+            <SearchUsers onUserClick={handleUserSelect} />
+          </WidgetContainer>
+        </>
+      )}
     </Layout>
   );
-}
+};
