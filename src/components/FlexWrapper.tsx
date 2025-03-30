@@ -1,8 +1,8 @@
 import clsx from "clsx";
 
 interface FlexWrapperProps {
-  children: React.ReactNode;
-  className?: string;
+  readonly children: React.ReactNode;
+  readonly className?: string;
 }
 
 export function FlexWrapper({ children, className }: FlexWrapperProps) {
