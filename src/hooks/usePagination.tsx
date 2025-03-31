@@ -16,7 +16,7 @@ export function usePagination<T>({
 
   const totalItems = data.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
+  const startItem = Math.min((currentPage - 1) * itemsPerPage + 1, totalItems);
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   const currentData = useMemo(() => {

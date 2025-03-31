@@ -106,7 +106,7 @@ export const Repositories: React.FC<RepositoriesProps> = ({ username }) => {
           </div>
         ) : (
           <p className="text-2xl text-gray-500 mt-6">
-            No public repositories found :O{" "}
+            No public repositories found :({" "}
           </p>
         )}
       </div>

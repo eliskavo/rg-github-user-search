@@ -1,4 +1,3 @@
-import { FlexWrapper } from "./FlexWrapper";
 import Magnifier from "./icons/Magnifier";
 
 type SearchInputProps = {
@@ -17,7 +16,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   };
 
   return (
-    <FlexWrapper className="relative flex-grow items-center mb-2">
+    <div className="relative flex-grow items-center mb-2 flex gap-2">
       <Magnifier className="absolute left-3 text-gray-400" />
       <input
         type="text"
@@ -26,6 +25,6 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         onChange={handleChange}
         value={value}
       />
-    </FlexWrapper>
+    </div>
   );
 };

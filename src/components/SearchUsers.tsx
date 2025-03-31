@@ -117,7 +117,9 @@ export const SearchUsers: React.FC<UserSearchProps> = ({
           />
         </div>
         <div className="flex justify-center py-8 mt-10">
-          <p className="text-2xl">Start searching for GitHub users</p>
+          <p className="text-xl text-gray-500 text-center sm:text-2xl">
+            Start searching for GitHub users
+          </p>
         </div>
       </>
     );
