@@ -78,7 +78,7 @@ export const Repositories: React.FC<RepositoriesProps> = ({ username }) => {
                     href={repo.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-essential-white text-xl w-full flex"
+                    className="text-essential-white text-xl w-full"
                   >
                     {repo.name}
 
@@ -106,7 +106,7 @@ export const Repositories: React.FC<RepositoriesProps> = ({ username }) => {
           </div>
         ) : (
           <p className="text-2xl text-gray-500 mt-6">
-            No public repositories found :O{" "}
+            No public repositories found :({" "}
           </p>
         )}
       </div>
